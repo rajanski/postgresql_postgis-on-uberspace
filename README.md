@@ -58,7 +58,8 @@ cd  gdal-1.11.1
 
 `createdb template_postgis`
 
-`sed -i 's/\$libdir/$HOME/postgis\/lib\/postgis-2.1.so/g' HOME/postgis/share/contrib/postgis/postgis.sql`
+`sed -i 's/\$libdir\/postgis-2.1/\$HOME\/postgis\/lib\/postgis-2.1.so/g' $HOME/postgis22/share/contrib/postgis/postgis.sql`
+
 Instead of fiddling with the sql files, it would be better to set $libdir in the service/postgresql/run file
 
 `psql -d template_postgis -f $HOME/postgis/share/contrib/postgis/postgis.sql`
