@@ -1,4 +1,4 @@
-###geos
+## geos
 
 ```bash
 $ wget wget http://download.osgeo.org/geos/geos-3.4.2.tar.gz
@@ -9,7 +9,7 @@ $ make && make install
 $ cd ..
 ```
 
-##proj
+## proj
 
 ```bash
 $ wget http://download.osgeo.org/proj/proj-4.8.0.tar.gz
@@ -20,7 +20,7 @@ $ make && make install
 $ cd ..
 ```
 
-###gdal
+## gdal
 
 ```bash
 $ wget http://download.osgeo.org/gdal/1.11.1/gdal-1.11.1.tar.gz
@@ -32,7 +32,7 @@ $ make && make install
 $ cd ..
 ```
 
-###postgis
+## PostGIS
 
 ```bash
 $ wget http://download.osgeo.org/postgis/source/postgis-2.1.4.tar.gz
@@ -49,38 +49,37 @@ $ sed -i 's/\$libdir\/postgis-2.1/\$HOME\/postgis\/lib\/postgis-2.1.so/g' \
   $HOME/postgis/share/contrib/postgis/postgis.sql
 ```
 
-Instead of fiddling with the sql files, it would be better to set $libdir in the service/postgresql/run file
+Instead of fiddling with the sql files, it would be better to set `$libdir` in the `service/postgresql/run` file
 
-```bash
-$ psql -d template_postgis -f $HOME/postgis/share/contrib/postgis/postgis.sql
-```
+1. Create a PostGIS template
 
----> ERROR with libgeos
+    ```bash
+    $ psql -d template_postgis -f $HOME/postgis/share/contrib/postgis/postgis.sql
+    ```
 
-### Add lib path to `$HOME/service/postgresql/run`
+    This will fail. ---> ERROR with libgeos
 
-```bash
-$ export LD_LIBRARY_PATH=$HOME/lib/:...
-```
+2. Add lib path to `$HOME/service/postgresql/run`
+
+    ```bash
+    $ export LD_LIBRARY_PATH=$HOME/lib/:...
+    ```
+
+3. Restart Postgres
+
+4. Try to create a PostGIS template a 2nd time
+
+    ```bash
+    $ psql -d template_postgis -f $HOME/postgis/share/contrib/postgis/postgis.sql
+    ```
+
+    This time it should work. --> Success
 
 
-### Restart Postgres
-
-### 2nd try:
-
-```bash
-$ psql -d template_postgis -f $HOME/postgis/share/contrib/postgis/postgis.sql
-```
-
---> Success
-
-#### For remote access via client
+## For remote access via client
 
 ### Make certs
 
 http://www.postgresql.org/docs/9.1/static/ssl-tcp.html
 
 ### Adapt `pg_hba.conf` and postgresql as needed
-
-
-
