@@ -26,17 +26,18 @@ make && make install
 ## PostGIS
 
 ```bash
-$ wget http://download.osgeo.org/postgis/source/postgis-2.1.4.tar.gz
-$ tar xvzf postgis-2.1.4.tar.gz
-$ cd postgis-2.1.4
-$ ./configure --with-projdir=$HOME \
-  --with-geosconfig=$HOME/bin/geos-config \
-  --with-gdalconfig=$HOME/bin/gdal-config
-$ mkdir $HOME/postgis
-$ make && make install DESTDIR=$HOME/postgis REGRESS=1
-$ cd ..
-$ createdb template_postgis
-$ sed -i 's/\$libdir\/postgis-2.1/\$HOME\/postgis\/lib\/postgis-2.1.so/g' \
+#!/bin/bash
+wget http://download.osgeo.org/postgis/source/postgis-2.1.4.tar.gz
+tar xvzf postgis-2.1.4.tar.gz
+cd postgis-2.1.4
+./configure --with-projdir=$HOME \
+--with-geosconfig=$HOME/bin/geos-config \
+--with-gdalconfig=$HOME/bin/gdal-config
+mkdir $HOME/postgis
+make && make install DESTDIR=$HOME/postgis REGRESS=1
+cd ..
+createdb template_postgis
+sed -i 's/\$libdir\/postgis-2.1/\$HOME\/postgis\/lib\/postgis-2.1.so/g' \
   $HOME/postgis/share/contrib/postgis/postgis.sql
 ```
 
@@ -45,7 +46,7 @@ Instead of fiddling with the sql files, it would be better to set `$libdir` in t
 1. Create a PostGIS template
 
     ```bash
-    $ psql -d template_postgis -f $HOME/postgis/share/contrib/postgis/postgis.sql
+    psql -d template_postgis -f $HOME/postgis/share/contrib/postgis/postgis.sql
     ```
 
     This will fail. ---> ERROR with libgeos
@@ -53,7 +54,7 @@ Instead of fiddling with the sql files, it would be better to set `$libdir` in t
 2. Add lib path to `$HOME/service/postgresql/run`
 
     ```bash
-    $ export LD_LIBRARY_PATH=$HOME/lib/:...
+    export LD_LIBRARY_PATH=$HOME/lib/:...
     ```
 
 3. Restart Postgres
@@ -61,7 +62,7 @@ Instead of fiddling with the sql files, it would be better to set `$libdir` in t
 4. Try to create a PostGIS template a 2nd time
 
     ```bash
-    $ psql -d template_postgis -f $HOME/postgis/share/contrib/postgis/postgis.sql
+    psql -d template_postgis -f $HOME/postgis/share/contrib/postgis/postgis.sql
     ```
 
     This time it should work. --> Success
