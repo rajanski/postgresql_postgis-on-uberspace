@@ -1,35 +1,26 @@
-## geos
+## geos, proj, gdal
 
 ```bash
-$ wget http://download.osgeo.org/geos/geos-3.4.2.tar.gz
-$ tar xvzf geos-3.4.2.tar.gz
-$ cd geos-3.4.2
-$ ./configure --prefix $HOME
-$ make && make install
-$ cd ..
-```
+#!/bin/bash
+wget http://download.osgeo.org/geos/geos-3.5.0.tar.bz2
+tar xvjf geos-3.5.0.tar.bz2
+cd geos-3.5.0
+./configure --prefix $HOME
+make && make install
+cd ..
+wget http://download.osgeo.org/proj/proj-4.8.0.tar.gz
+tar xvzf proj-4.8.0.tar.gz
+cd proj-4.8.0
+./configure --prefix $HOME
+make && make install
+cd ..
 
-## proj
+wget http://download.osgeo.org/gdal/1.11.1/gdal-1.11.1.tar.gz
+tar xvzf gdal-1.11.1.tar.gz
+cd gdal-1.11.1
+./configure --prefix $HOME --with-geosconfig=$HOME/bin/geos-config --with-pg=/p$
+make && make install
 
-```bash
-$ wget http://download.osgeo.org/proj/proj-4.8.0.tar.gz
-$ tar xvzf proj-4.8.0.tar.gz
-$ cd proj-4.8.0
-$ ./configure --prefix $HOME
-$ make && make install
-$ cd ..
-```
-
-## gdal
-
-```bash
-$ wget http://download.osgeo.org/gdal/1.11.1/gdal-1.11.1.tar.gz
-$ tar xvzf  gdal-1.11.1.tar.gz
-$ cd gdal-1.11.1
-$ ./configure --prefix $HOME --with-geosconfig=$HOME/bin/geos-config \
-  --with-pg=/package/host/localhost/postgresql-9.2.6-1/bin/pg_config`
-$ make && make install
-$ cd ..
 ```
 
 ## PostGIS
