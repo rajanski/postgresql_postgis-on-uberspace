@@ -1,7 +1,7 @@
 ## geos
 
 ```bash
-$ wget wget http://download.osgeo.org/geos/geos-3.4.2.tar.gz
+$ wget http://download.osgeo.org/geos/geos-3.4.2.tar.gz
 $ tar xvzf geos-3.4.2.tar.gz
 $ cd geos-3.4.2
 $ ./configure --prefix $HOME
@@ -24,7 +24,7 @@ $ cd ..
 
 ```bash
 $ wget http://download.osgeo.org/gdal/1.11.1/gdal-1.11.1.tar.gz
-$ tar xvazf  gdal-1.11.1.tar.gz
+$ tar xvzf  gdal-1.11.1.tar.gz
 $ cd gdal-1.11.1
 $ ./configure --prefix $HOME --with-geosconfig=$HOME/bin/geos-config \
   --with-pg=/package/host/localhost/postgresql-9.2.6-1/bin/pg_config`
